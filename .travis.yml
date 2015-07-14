@@ -1,0 +1,13 @@
+language: julia
+os:
+  - linux
+  - osx
+julia:
+  - release
+  - nightly
+notifications:
+  email: true
+# uncomment the following lines to override the default test script
+script:
+ - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+ - julia --check-bounds=yes -e 'Pkg.clone(pwd(), "MexbtClient"); Pkg.build("MexbtClient"); Pkg.test("MexbtClient"; coverage=true)'
